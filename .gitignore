@@ -1,0 +1,15 @@
+application.yml
+Secret.java
+
+/.gradle
+/.idea
+/build
+/gradle
+/logs
+/out
+.DS_Store
+build.gradle
+gralew
+gradlew.bat
+settings.gradle
+README.md
