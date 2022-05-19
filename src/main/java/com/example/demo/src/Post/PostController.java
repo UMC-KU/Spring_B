@@ -4,6 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.post.model.GetPostsRes;
+import com.example.demo.src.post.model.PatchPostsReq;
 import com.example.demo.src.post.model.PostPostsReq;
 import com.example.demo.src.post.model.PostPostsRes;
 import com.example.demo.src.user.UserProvider;
@@ -62,9 +63,29 @@ public class PostController {
             if(postPostsReq.getPostImgUrls().size() < 1)
                 return new BaseResponse<>(BaseResponseStatus.POST_POSTS_EMPTY_IMGURL);
 
-            PostPostsRes getPostsRes = postService.createPosts(postPostsReq.getUserIdx(), postPostsReq);
+            PostPostsRes getPostsRes = postService.createPost(postPostsReq.getUserIdx(), postPostsReq);
             // 무언가를 만드는 것이기 때문에 Service로 처리
             return new BaseResponse<>(getPostsRes);
+        } catch(BaseException exception){
+            exception.printStackTrace();
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("/{postIdx}")
+    public BaseResponse<String> modifyPosts(@PathVariable("postIdx") int postIdx, @RequestBody PatchPostsReq patchPostsReq) {
+        try{
+            // 게시글에 대한 validation - 게시물 수정 시 이미지 변경 불가, 게시글만 변경 가능
+            // 게시글의 길이가 제한 글자수보다 길 때
+            if(patchPostsReq.getContent().length() > 450)
+                return new BaseResponse<>(BaseResponseStatus.POST_POSTS_INVALID_CONTENTS);
+
+            String result = "게시물 수정을 완료하였습니다.";
+
+            postService.modifyPost(patchPostsReq.getUserIdx(), postIdx, patchPostsReq);
+
+            return new BaseResponse<>(result);
         } catch(BaseException exception){
             exception.printStackTrace();
             return new BaseResponse<>((exception.getStatus()));
