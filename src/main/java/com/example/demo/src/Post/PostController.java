@@ -1,8 +1,11 @@
-package com.example.demo.src.Post;
+package com.example.demo.src.post;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.Post.model.GetPostsRes;
+import com.example.demo.config.BaseResponseStatus;
+import com.example.demo.src.post.model.GetPostsRes;
+import com.example.demo.src.post.model.PostPostsReq;
+import com.example.demo.src.post.model.PostPostsRes;
 import com.example.demo.src.user.UserProvider;
 import com.example.demo.src.user.UserService;
 import com.example.demo.src.user.model.*;
@@ -14,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
+import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
@@ -29,8 +31,6 @@ public class PostController {
     private final PostService postService;
     @Autowired
     private final JwtService jwtService;
-
-
 
 
     public PostController(PostProvider postProvider, PostService postService, JwtService jwtService){
@@ -50,5 +50,25 @@ public class PostController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("")
+    public BaseResponse<PostPostsRes> createPosts(@RequestBody PostPostsReq postPostsReq) {
+        try{
+            // 이미지, 게시글에 대한 validation
+            // 게시글의 길이가 제한 글자수보다 길 때
+            if(postPostsReq.getContent().length() > 450)
+                return new BaseResponse<>(BaseResponseStatus.POST_POSTS_INVALID_CONTENTS);
+            // 이미지가 없을 때
+            if(postPostsReq.getPostImgUrls().size() < 1)
+                return new BaseResponse<>(BaseResponseStatus.POST_POSTS_EMPTY_IMGURL);
+
+            PostPostsRes getPostsRes = postService.createPosts(postPostsReq.getUserIdx(), postPostsReq);
+            // 무언가를 만드는 것이기 때문에 Service로 처리
+            return new BaseResponse<>(getPostsRes);
+        } catch(BaseException exception){
+            exception.printStackTrace();
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
 }

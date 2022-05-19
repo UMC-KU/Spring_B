@@ -1,8 +1,8 @@
-package com.example.demo.src.Post;
+package com.example.demo.src.post;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.Post.model.GetPostsRes;
+import com.example.demo.src.post.model.GetPostsRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;

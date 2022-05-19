@@ -1,8 +1,9 @@
-package com.example.demo.src.Post;
+package com.example.demo.src.post;
 
 
-import com.example.demo.src.Post.model.GetPostImgRes;
-import com.example.demo.src.Post.model.GetPostsRes;
+import com.example.demo.src.post.model.GetPostImgRes;
+import com.example.demo.src.post.model.GetPostsRes;
+import com.example.demo.src.post.model.PostImgsUrlReq;
 import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,6 +83,26 @@ public class PostDao {
         return this.jdbcTemplate.queryForObject(checkUserExistQuery,
                 int.class,
                 checkUserExistParams);
+    }
+
+    public int insertPosts(int userIdx, String content){
+        String insertPostQuery = "INSERT INTO Post(userIdx, content) VALUES(?, ?)";
+        Object[] insertPostParams = new Object[]{userIdx, content};
+
+        this.jdbcTemplate.update(insertPostQuery, insertPostParams);
+
+        String lastInsertIdxQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+    public int insertPostImgs(int postIdx, PostImgsUrlReq postImgsUrlReq){
+        String insertPostImgsQuery = "INSERT INTO PostImgUrl(postIdx, imgUrl) VALUES(?, ?)";
+        Object[] insertPostImgParams = new Object[]{postIdx, postImgsUrlReq.getImgUrl()};
+
+        this.jdbcTemplate.update(insertPostImgsQuery, insertPostImgParams);
+
+        String lastInsertIdxQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
 }
 
