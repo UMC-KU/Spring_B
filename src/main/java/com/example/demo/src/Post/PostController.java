@@ -92,4 +92,18 @@ public class PostController {
         }
     }
 
+    @ResponseBody
+    @PatchMapping("/{postIdx}/status")
+    public BaseResponse<String> deletePosts(@PathVariable("postIdx") int postIdx) {
+        try{
+            String result = "게시물 삭제를 완료하였습니다.";
+
+            postService.deletePost(postIdx);
+
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            exception.printStackTrace();
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

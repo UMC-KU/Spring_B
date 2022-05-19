@@ -77,4 +77,21 @@ public class PostService {
         }
     }
 
+    public void deletePost(int postIdx) throws BaseException{
+        if(postProvider.checkPostExist(postIdx)==0)
+            throw new BaseException(POSTS_EMPTY_POST_ID);
+
+        try{
+            // update 문 실행 잘 되면 1 반환, 아니면 0 반환 -> 에러 코드 전달
+            int result = postDao.deletePost(postIdx);
+
+            // result가 0이면, DB 접근 오류 or 데이터 정상적으로 입력 X
+            if(result == 0)
+                throw new BaseException(DELETE_FAIL_POST);
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

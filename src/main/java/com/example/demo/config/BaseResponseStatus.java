@@ -28,7 +28,7 @@ public enum BaseResponseStatus {
     // [POST] /users
     POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
-    POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
+    POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이`메일입니다."),
 
     POST_POSTS_INVALID_CONTENTS(false, 2018, "제한 글자 수를 초과하였습니다."),
     POST_POSTS_EMPTY_IMGURL(false, 2019, "게시물의 이미지를 입력해주세요."),
@@ -47,6 +47,7 @@ public enum BaseResponseStatus {
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
 
     MODIFY_FAIL_POST(false, 3020, "게시물 수정에 실패하였습니다."),
+    DELETE_FAIL_POST(false, 3021, "게시물 삭제에 실패하였습니다."),
 
 
 

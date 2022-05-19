@@ -112,6 +112,13 @@ public class PostDao {
         return this.jdbcTemplate.update(updatePostQuery, updatePostParams);
     }
 
+    public int deletePost(int postIdx){
+        String deletePostQuery = "UPDATE Post SET status='INACTIVE' WHERE postIdx=?";
+        int deletePostParams = postIdx;
+
+        return this.jdbcTemplate.update(deletePostQuery, deletePostParams);
+    }
+
     public int checkPostExist(int postIdx){
         String checkPostExistQuery = "select exists(select postIdx from Post where postIdx = ?)";
         int checkPostExistParams = postIdx;
