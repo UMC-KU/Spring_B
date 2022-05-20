@@ -1,0 +1,16 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://udemy-db.cjib5zeyl9z3.ap-northeast-2.rds.amazonaws.com:3306/udemyDB?autoReconnect=true
+    #udemyDB?serverTimezone=UTC&useLegacyDatetimeCode=false
+    #jdbc:mysql://localhost:3307/udemy?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: sjlee2163
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
+    # driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
