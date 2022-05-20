@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.ykj.service"/>
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="url" value="jdbc:mysql://localhost:3306/newlecture1"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="username" value="YKJ"/>
+        <property name="password" value="991911"/>
+    </bean>
+
+<!--    <bean id="service" class="com.ykj.service.jdbc.JDBCNoticeService">-->
+<!--&lt;!&ndash;        <property name="dataSource" ref="datasource"/>&ndash;&gt;-->
+<!--    </bean>-->
+    
+</beans>

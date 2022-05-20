@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <mvc:resources mapping="/**" location="/static/"/>
+
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="order" value="1" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions" value="/WEB-INF/tiles.xml" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="2"/>
+    </bean>
+
+    <bean id="/index" class="com.ykj.controller.HomeController"/>
+
+    <bean id="/notice/list" class="com.ykj.controller.notice.ListController">
+        <property name="service" ref="service"/>
+    </bean>
+
+    <bean id="/notice/detail" class="com.ykj.controller.notice.DetailController"/>
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="url" value="jdbc:mysql://localhost:3306/newlecture1"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="username" value="YKJ"/>
+        <property name="password" value="991911"/>
+    </bean>
+
+    <bean id="service" class="com.ykj.service.jdbc.JDBCNoticeService">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+
+</beans>

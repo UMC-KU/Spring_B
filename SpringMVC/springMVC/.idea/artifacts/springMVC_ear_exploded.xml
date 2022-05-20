@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="springMVC:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/springMVC_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="springMVC/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
