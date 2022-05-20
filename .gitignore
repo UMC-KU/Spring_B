@@ -1,12 +1,12 @@
 application.yml
 Secret.java
 
-/.gradle
-/.idea
-/build
-/gradle
-/logs
-/out
+/ro-el/.gradle
+/ro-el/.idea
+/ro-el/build
+/ro-el/gradle
+/ro-el/logs
+/ro-el/out
 .DS_Store
 build.gradle
 gralew
