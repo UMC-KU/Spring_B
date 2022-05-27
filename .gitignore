@@ -1,15 +1,5 @@
 application.yml
 Secret.java
 
-/ro-el/.gradle
-/ro-el/.idea
-/ro-el/build
-/ro-el/gradle
-/ro-el/logs
-/ro-el/out
-.DS_Store
-build.gradle
-gralew
-gradlew.bat
-settings.gradle
+
 README.md
