@@ -53,8 +53,13 @@ public class PostController {
 
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<PostPostsRes> createPosts(@RequestBody PostPostsReq postPostsReq) {
+    public BaseResponse<PostPostsRes> createPost(@RequestBody PostPostsReq postPostsReq) {
+
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(postPostsReq.getUserIdx() != userIdxByJwt)
+                return new BaseResponse<>(INVALID_USER_JWT);
+
             // 이미지, 게시글에 대한 validation
             // 게시글의 길이가 제한 글자수보다 길 때
             if(postPostsReq.getContent().length() > 450)
@@ -63,7 +68,8 @@ public class PostController {
             if(postPostsReq.getPostImgUrls().size() < 1)
                 return new BaseResponse<>(BaseResponseStatus.POST_POSTS_EMPTY_IMGURL);
 
-            PostPostsRes getPostsRes = postService.createPost(postPostsReq.getUserIdx(), postPostsReq);
+            PostPostsRes getPostsRes = postService.createPost(userIdxByJwt, postPostsReq);
+
             // 무언가를 만드는 것이기 때문에 Service로 처리
             return new BaseResponse<>(getPostsRes);
         } catch(BaseException exception){

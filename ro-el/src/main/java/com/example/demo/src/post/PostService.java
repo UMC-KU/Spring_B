@@ -40,8 +40,8 @@ public class PostService {
     }
 
     public PostPostsRes createPost(int userIdx, PostPostsReq postPostsReq) throws BaseException{
-        if(postProvider.checkUserExist(userIdx)==0)
-            throw new BaseException(USERS_EMPTY_USER_ID);
+        if(postProvider.checkUserExist(userIdx)==0){
+            throw new BaseException(USERS_EMPTY_USER_ID);}
 
         try{
             int postIdx = postDao.insertPost(userIdx, postPostsReq.getContent());
